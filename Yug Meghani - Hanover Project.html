@@ -1,0 +1,2323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yug : Hanover Park Project</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --white: #FFFFFF;
+    --bg: #FBFAF7;
+    --bg-deep: #F2F0EB;
+    --surface: #FFFFFF;
+    --surface-2: #F7F5F0;
+
+    --ink: #0A1410;
+    --ink-soft: #2D3A33;
+    --ink-muted: #6B7771;
+    --line: #E8E5DD;
+    --line-soft: #F0EDE5;
+
+    --forest: #1F4231;
+    --forest-deep: #15321F;
+    --forest-soft: #DDE8E0;
+    --forest-mist: #EEF3EE;
+    --forest-bright: #2D6649;
+
+    --amber: #B8861F;
+    --amber-soft: #F8EFD4;
+    --red: #B43E2E;
+
+    --shadow-sm: 0 1px 3px rgba(10, 20, 16, 0.04);
+    --shadow-md: 0 4px 16px rgba(10, 20, 16, 0.06);
+    --shadow-lg: 0 12px 40px rgba(10, 20, 16, 0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.005em;
+  }
+
+  /* ============ NAV ============ */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(251, 250, 247, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 18px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 17px;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .logo-mark {
+    width: 28px;
+    height: 28px;
+    background: var(--ink);
+    border-radius: 7px;
+    position: relative;
+    overflow: hidden;
+  }
+  .logo-mark::before {
+    content: "";
+    position: absolute;
+    inset: 6px 6px auto 6px;
+    height: 6px;
+    background: var(--forest-soft);
+    border-radius: 1px;
+  }
+  .logo-mark::after {
+    content: "";
+    position: absolute;
+    inset: 14px 6px auto 6px;
+    height: 8px;
+    background: var(--forest-bright);
+    border-radius: 1px;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    font-size: 14px;
+  }
+  .nav-link {
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.15s;
+  }
+  .nav-link:hover { color: var(--forest); }
+
+  /* ============ PART DIVIDER ============ */
+  .part-divider {
+    background: var(--ink);
+    color: var(--white);
+    padding: 80px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .part-divider-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  .part-divider .part-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--forest-bright);
+    letter-spacing: 0.06em;
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+
+  .part-divider-num {
+    font-family: 'Fraunces', serif;
+    font-size: 200px;
+    line-height: 0.85;
+    color: var(--white);
+    font-weight: 300;
+    letter-spacing: -0.05em;
+  }
+
+  .part-divider-num em {
+    font-style: italic;
+    color: var(--forest-bright);
+    font-weight: 300;
+  }
+
+  .part-divider h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(36px, 4.5vw, 56px);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--white);
+    font-weight: 400;
+    margin-bottom: 20px;
+  }
+
+  .part-divider h2 em {
+    font-style: italic;
+    color: var(--forest-bright);
+    font-weight: 300;
+  }
+
+  .part-divider p {
+    font-size: 19px;
+    line-height: 1.5;
+    color: rgba(255,255,255,0.7);
+    max-width: 700px;
+  }
+
+  /* ============ HERO ============ */
+  .hero {
+    padding: 100px 32px 64px;
+    text-align: center;
+  }
+  .hero-inner { max-width: 1100px; margin: 0 auto; }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--forest-soft);
+    color: var(--forest-deep);
+    padding: 8px 16px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 32px;
+  }
+  .hero-eyebrow::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    background: var(--forest-bright);
+    border-radius: 100%;
+    animation: pulse 2.4s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.4); }
+  }
+
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(48px, 7vw, 88px);
+    line-height: 0.96;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+    margin-bottom: 28px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--forest);
+    font-weight: 300;
+  }
+
+  .hero-sub {
+    font-size: 21px;
+    color: var(--ink-soft);
+    line-height: 1.45;
+    max-width: 760px;
+    margin: 0 auto 64px;
+  }
+
+  /* Hero stats strip */
+  .hero-stats {
+    max-width: 1280px;
+    margin: 64px auto 0;
+    padding: 0 32px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .hero-stat {
+    padding: 40px 28px;
+    border-right: 1px solid var(--line);
+    text-align: left;
+  }
+  .hero-stat:last-child { border-right: none; }
+  .hero-stat-num {
+    font-family: 'Fraunces', serif;
+    font-size: 64px;
+    line-height: 0.9;
+    color: var(--ink);
+    font-weight: 300;
+    letter-spacing: -0.04em;
+    margin-bottom: 10px;
+  }
+  .hero-stat-num em { font-style: italic; color: var(--forest); font-weight: 300; }
+  .hero-stat-label {
+    font-size: 13px;
+    color: var(--ink-muted);
+    line-height: 1.4;
+    font-weight: 500;
+  }
+
+  /* ============ SECTION FRAME ============ */
+  section { padding: 80px 32px; }
+  .section-inner { max-width: 1280px; margin: 0 auto; }
+  .section-eyebrow {
+    font-size: 13px;
+    color: var(--forest);
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(36px, 4.5vw, 56px);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    max-width: 900px;
+    margin-bottom: 24px;
+  }
+  .section-title em { font-style: italic; color: var(--forest); font-weight: 300; }
+  .section-sub {
+    font-size: 19px;
+    color: var(--ink-soft);
+    line-height: 1.45;
+    max-width: 760px;
+  }
+
+  /* ============ ANATOMY (PART 1) ============ */
+  .anatomy-section { background: var(--bg); padding-bottom: 100px; }
+
+  /* Payment type selector */
+  .type-selector {
+    margin-top: 56px;
+    margin-bottom: 12px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 8px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .type-btn {
+    background: transparent;
+    border: none;
+    padding: 16px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.18s;
+    font-family: inherit;
+    text-align: center;
+  }
+
+  .type-btn:hover { background: var(--surface-2); }
+
+  .type-btn.active {
+    background: var(--ink);
+    color: var(--white);
+  }
+
+  .type-btn-id {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--ink-muted);
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+  .type-btn.active .type-btn-id { color: var(--forest-bright); }
+
+  .type-btn-name {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+
+  .type-btn-vol {
+    font-size: 11px;
+    color: var(--ink-muted);
+    font-weight: 500;
+  }
+  .type-btn.active .type-btn-vol { color: rgba(255,255,255,0.6); }
+
+  /* Type header — selected payment context */
+  .type-header {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 28px 36px;
+    margin-bottom: 16px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: center;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .type-header h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 400;
+    letter-spacing: -0.025em;
+    margin-bottom: 8px;
+  }
+
+  .type-header h3 em {
+    font-style: italic;
+    color: var(--forest);
+    font-weight: 300;
+  }
+
+  .type-header p {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    max-width: 720px;
+  }
+
+  .type-header-stake {
+    text-align: right;
+  }
+
+  .type-header-stake .stake-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .type-header-stake .stake-val {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    color: var(--forest);
+    font-weight: 500;
+    letter-spacing: -0.015em;
+  }
+
+  /* THE STATIONS — main lifecycle visualization */
+  .stations {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 56px 48px;
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stations-track {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+  }
+
+  /* The connecting line behind stations */
+  .stations-track::before {
+    content: "";
+    position: absolute;
+    top: 24px;
+    left: 7%;
+    right: 7%;
+    height: 2px;
+    background: linear-gradient(90deg,
+      var(--forest-soft) 0%,
+      var(--forest) 30%,
+      var(--forest-bright) 70%,
+      var(--forest-deep) 100%);
+    z-index: 1;
+  }
+
+  .station {
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+
+  .station:hover { transform: translateY(-3px); }
+
+  .station-marker {
+    width: 48px;
+    height: 48px;
+    background: var(--white);
+    border: 2px solid var(--forest);
+    border-radius: 100%;
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  .station-marker svg {
+    width: 22px;
+    height: 22px;
+    stroke: var(--forest);
+    transition: stroke 0.2s;
+  }
+
+  .station.active .station-marker {
+    background: var(--forest);
+    transform: scale(1.15);
+    box-shadow: 0 0 0 6px var(--forest-soft);
+  }
+  .station.active .station-marker svg { stroke: var(--white); }
+
+  .station.ai .station-marker { border-color: var(--forest-bright); }
+  .station.ai .station-marker svg { stroke: var(--forest-bright); }
+  .station.human .station-marker { border-color: var(--amber); }
+  .station.human .station-marker svg { stroke: var(--amber); }
+
+  .station.active.ai .station-marker { background: var(--forest-bright); }
+  .station.active.human .station-marker { background: var(--amber); }
+  .station.active.ai .station-marker svg,
+  .station.active.human .station-marker svg { stroke: var(--white); }
+
+  .station-label {
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--ink-muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+
+  .station-name {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+
+  .station-name small {
+    display: block;
+    font-weight: 400;
+    color: var(--ink-muted);
+    font-size: 11px;
+    margin-top: 3px;
+  }
+
+  /* Station detail panel */
+  .station-detail {
+    margin-top: 48px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 36px 40px;
+  }
+
+  .station-detail-head {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: start;
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .station-detail-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--forest-deep);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  .station-detail h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 30px;
+    font-weight: 400;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+
+  .station-detail h4 em {
+    font-style: italic;
+    color: var(--forest);
+    font-weight: 300;
+  }
+
+  .station-detail-headp {
+    font-size: 16px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    max-width: 600px;
+  }
+
+  .station-actor-pill {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    padding: 8px 16px;
+    font-size: 12px;
+    color: var(--ink-soft);
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    align-self: start;
+    white-space: nowrap;
+  }
+
+  .station-actor-pill::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 100%;
+    background: var(--forest);
+  }
+  .station-actor-pill.ai::before { background: var(--forest-bright); }
+  .station-actor-pill.human::before { background: var(--amber); }
+
+  .station-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 28px;
+  }
+
+  .sd-block h6 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--forest-deep);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+
+  .sd-block ul { list-style: none; }
+
+  .sd-block ul li {
+    padding: 8px 0 8px 16px;
+    font-size: 13px;
+    color: var(--ink);
+    line-height: 1.5;
+    border-bottom: 1px dashed var(--line);
+    position: relative;
+  }
+  .sd-block ul li:last-child { border-bottom: none; }
+
+  .sd-block ul li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 14px;
+    width: 5px;
+    height: 5px;
+    background: var(--forest);
+    border-radius: 100%;
+  }
+
+  .sd-block ul.errors li::before { background: var(--amber); }
+
+  .sd-block p {
+    font-size: 13px;
+    color: var(--ink);
+    line-height: 1.6;
+  }
+
+  /* Footnote: my role at this station */
+  .station-my-role {
+    background: var(--forest-mist);
+    border-left: 3px solid var(--forest);
+    padding: 18px 22px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 24px;
+  }
+
+  .station-my-role h6 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--forest-deep);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+
+  .station-my-role p {
+    font-size: 14px;
+    color: var(--forest-deep);
+    line-height: 1.55;
+    font-weight: 500;
+  }
+
+  /* Legend */
+  .legend {
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    font-size: 12px;
+    color: var(--ink-muted);
+    flex-wrap: wrap;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 100%;
+    border: 2px solid var(--forest);
+  }
+  .legend-dot.ai { border-color: var(--forest-bright); }
+  .legend-dot.human { border-color: var(--amber); }
+
+  /* The "Why this matters" callout */
+  .lifecycle-takeaway {
+    margin-top: 40px;
+    background: var(--ink);
+    color: var(--white);
+    border-radius: 24px;
+    padding: 48px 56px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .lifecycle-takeaway-num {
+    font-family: 'Fraunces', serif;
+    font-size: 120px;
+    line-height: 0.85;
+    color: var(--white);
+    font-weight: 300;
+    letter-spacing: -0.04em;
+  }
+
+  .lifecycle-takeaway-num em {
+    font-style: italic;
+    color: var(--forest-bright);
+    font-weight: 300;
+  }
+
+  .lifecycle-takeaway h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 400;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    margin-bottom: 14px;
+  }
+
+  .lifecycle-takeaway h4 em {
+    font-style: italic;
+    color: var(--forest-bright);
+    font-weight: 300;
+  }
+
+  .lifecycle-takeaway p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.55;
+  }
+
+  /* ============ PART 2 — 30-DAY PLAN ============ */
+  .plan-section { background: var(--bg-deep); }
+
+  .plan-grid {
+    margin-top: 56px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .plan-week {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 36px;
+    transition: all 0.2s;
+  }
+
+  .plan-week:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--forest-soft);
+  }
+
+  .plan-week-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+
+  .plan-week-num {
+    font-family: 'Fraunces', serif;
+    font-size: 56px;
+    color: var(--forest);
+    font-weight: 300;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+  }
+
+  .plan-week-meta {
+    text-align: right;
+  }
+
+  .plan-week-days {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-muted);
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+  }
+
+  .plan-week-phase {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--forest);
+    background: var(--forest-soft);
+    padding: 4px 10px;
+    border-radius: 100px;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+    display: inline-block;
+  }
+
+  .plan-week h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    font-weight: 400;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    margin-bottom: 14px;
+  }
+
+  .plan-week h3 em {
+    font-style: italic;
+    color: var(--forest);
+    font-weight: 300;
+  }
+
+  .plan-week-goal {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    margin-bottom: 24px;
+    padding-left: 14px;
+    border-left: 2px solid var(--forest);
+    font-style: italic;
+  }
+
+  .plan-activities {
+    list-style: none;
+    margin-bottom: 24px;
+  }
+
+  .plan-activities li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line-soft);
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink);
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    gap: 10px;
+  }
+
+  .plan-activities li:last-child { border-bottom: none; }
+
+  .plan-activities li::before {
+    content: "→";
+    color: var(--forest);
+    font-weight: 600;
+    padding-top: 2px;
+  }
+
+  .plan-deliverable {
+    background: var(--forest-mist);
+    border: 1px solid var(--forest-soft);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-top: 8px;
+  }
+
+  .plan-deliverable-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--forest-deep);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+
+  .plan-deliverable h5 {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    margin-bottom: 4px;
+  }
+
+  .plan-deliverable p {
+    font-size: 12px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  /* Operating principles */
+  .principles-section { background: var(--bg); }
+
+  .principles {
+    margin-top: 56px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    overflow: hidden;
+  }
+
+  .principle {
+    background: var(--surface);
+    padding: 36px 32px;
+    transition: background 0.2s;
+  }
+
+  .principle:hover { background: var(--forest-mist); }
+
+  .principle-num {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    color: var(--forest);
+    font-weight: 300;
+    margin-bottom: 14px;
+    line-height: 1;
+  }
+
+  .principle h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+
+  .principle h3 em { font-style: italic; color: var(--forest); font-weight: 300; }
+
+  .principle p {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  .principle p strong { color: var(--ink); font-weight: 600; }
+
+  /* ============ CLOSING ============ */
+  .closing-section { background: var(--bg-deep); }
+
+  .closing-grid {
+    margin-top: 56px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+  }
+
+  .closing-block h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 32px;
+    font-weight: 400;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+
+  .closing-block h3 em { font-style: italic; color: var(--forest); font-weight: 300; }
+
+  .closing-block p {
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin-bottom: 14px;
+  }
+
+  .closing-asks { list-style: none; margin-top: 8px; }
+
+  .closing-asks li {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+    align-items: center;
+    font-size: 15px;
+  }
+  .closing-asks li:last-child { border-bottom: none; }
+
+  .closing-asks span:last-child {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--forest-deep);
+    background: var(--forest-soft);
+    padding: 4px 10px;
+    border-radius: 100px;
+    letter-spacing: 0.02em;
+    font-weight: 500;
+  }
+
+  /* Footer */
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.55);
+    padding: 56px 32px 40px;
+  }
+
+  .footer-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.02em;
+  }
+
+  .footer-inner .logo { color: var(--white); }
+
+  /* ============ VIEW SYSTEM ============ */
+  .view { display: none; }
+  .view.active { display: block; animation: viewFadeIn 0.4s ease; }
+  @keyframes viewFadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ============ LANDING PAGE ============ */
+  .landing {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .landing::before {
+    content: "";
+    position: absolute;
+    top: -200px;
+    right: -200px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, var(--forest-mist) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .landing::after {
+    content: "";
+    position: absolute;
+    bottom: -150px;
+    left: -150px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, var(--forest-soft) 0%, transparent 70%);
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .landing-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 32px 64px;
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .landing-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--forest-soft);
+    color: var(--forest-deep);
+    padding: 8px 16px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 32px;
+    align-self: flex-start;
+  }
+
+  .landing-eyebrow::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    background: var(--forest-bright);
+    border-radius: 100%;
+    animation: pulse 2.4s infinite;
+  }
+
+  .landing h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(48px, 7vw, 88px);
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+    margin-bottom: 28px;
+    max-width: 1000px;
+  }
+
+  .landing h1 em {
+    font-style: italic;
+    color: var(--forest);
+    font-weight: 300;
+  }
+
+  .landing-sub {
+    font-size: 21px;
+    color: var(--ink-soft);
+    line-height: 1.45;
+    max-width: 720px;
+    margin-bottom: 64px;
+  }
+
+  .landing-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-bottom: 56px;
+  }
+
+  .landing-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 40px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-align: left;
+    font-family: inherit;
+    color: var(--ink);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 320px;
+  }
+
+  .landing-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--forest);
+  }
+
+  .landing-card.disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+  .landing-card.disabled:hover {
+    transform: none;
+    box-shadow: var(--shadow-sm);
+    border-color: var(--line);
+  }
+
+  .landing-card-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--forest);
+    letter-spacing: 0.06em;
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+
+  .landing-card-prompt {
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    color: var(--ink-muted);
+    font-style: italic;
+    margin-bottom: 8px;
+    letter-spacing: -0.005em;
+  }
+
+  .landing-card h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 400;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    margin-bottom: 14px;
+    color: var(--ink);
+  }
+
+  .landing-card h3 em {
+    font-style: italic;
+    color: var(--forest);
+    font-weight: 300;
+  }
+
+  .landing-card p {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin-bottom: 24px;
+    flex-grow: 1;
+  }
+
+  .landing-card-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--forest);
+    font-weight: 600;
+    font-size: 14px;
+    transition: gap 0.2s;
+    margin-top: auto;
+  }
+
+  .landing-card-cta::after {
+    content: "→";
+    transition: transform 0.2s;
+  }
+
+  .landing-card:hover .landing-card-cta { gap: 12px; }
+
+  .landing-card.disabled .landing-card-cta { color: var(--ink-muted); }
+
+  .landing-card-tag {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    background: var(--forest-soft);
+    color: var(--forest-deep);
+    padding: 4px 10px;
+    border-radius: 100px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+  }
+
+  .landing-card.disabled .landing-card-tag {
+    background: var(--surface-2);
+    color: var(--ink-muted);
+  }
+
+  .landing-foot {
+    text-align: left;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-muted);
+    letter-spacing: 0.02em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  /* ============ BACK LINK ============ */
+  .back-link {
+    position: fixed;
+    top: 80px;
+    left: 32px;
+    z-index: 99;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    padding: 10px 18px;
+    border-radius: 100px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    transition: all 0.18s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+  }
+
+  .back-link:hover {
+    background: var(--ink);
+    color: var(--white);
+    transform: translateX(-2px);
+  }
+
+  .back-link::before { content: "←"; }
+
+  /* ============ PLACEHOLDER ============ */
+  .placeholder {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 32px;
+    background: var(--bg);
+  }
+
+  .placeholder-inner {
+    max-width: 720px;
+    text-align: center;
+  }
+
+  .placeholder-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--amber-soft);
+    color: var(--amber);
+    padding: 8px 16px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 32px;
+    letter-spacing: 0.02em;
+  }
+
+  .placeholder h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin-bottom: 20px;
+  }
+
+  .placeholder h2 em {
+    font-style: italic;
+    color: var(--forest);
+    font-weight: 300;
+  }
+
+  .placeholder p {
+    font-size: 19px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    margin-bottom: 36px;
+  }
+
+  .placeholder-back {
+    background: var(--ink);
+    color: var(--white);
+    border: none;
+    padding: 14px 28px;
+    border-radius: 100px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.18s;
+  }
+  .placeholder-back:hover { background: var(--forest); transform: translateY(-1px); }
+
+  @media (max-width: 980px) {
+    .landing-inner { padding: 56px 20px; }
+    .landing-cards { grid-template-columns: 1fr; gap: 16px; }
+    .landing-card { padding: 32px 28px; min-height: 0; }
+    .landing-card h3 { font-size: 24px; }
+    .back-link { top: 70px; left: 16px; padding: 8px 14px; font-size: 12px; }
+    .placeholder { padding: 56px 20px; }
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 980px) {
+    .hero { padding: 56px 20px 40px; }
+    .hero-stats { grid-template-columns: repeat(2, 1fr); margin-top: 40px; padding: 0 20px; }
+    .hero-stat { padding: 28px 20px; }
+    .hero-stat:nth-child(1), .hero-stat:nth-child(2) { border-bottom: 1px solid var(--line); }
+    .hero-stat:nth-child(2), .hero-stat:nth-child(4) { border-right: none; }
+    .hero-stat-num { font-size: 44px; }
+
+    section { padding: 56px 20px; }
+    .nav-links { display: none; }
+
+    .part-divider { padding: 56px 20px; }
+    .part-divider-inner { grid-template-columns: 1fr; gap: 24px; }
+    .part-divider-num { font-size: 100px; }
+
+    .type-selector { grid-template-columns: repeat(2, 1fr); gap: 4px; }
+    .type-btn { padding: 12px 10px; }
+    .type-btn-name { font-size: 14px; }
+
+    .type-header { grid-template-columns: 1fr; gap: 12px; padding: 20px 24px; }
+    .type-header-stake { text-align: left; }
+
+    .stations { padding: 32px 20px; }
+    .stations-track { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .stations-track::before { display: none; }
+    .station-marker { margin-bottom: 8px; }
+
+    .station-detail { padding: 24px; }
+    .station-detail-head { grid-template-columns: 1fr; gap: 16px; }
+    .station-detail-grid { grid-template-columns: 1fr; gap: 20px; }
+
+    .lifecycle-takeaway { grid-template-columns: 1fr; padding: 32px 28px; gap: 20px; }
+    .lifecycle-takeaway-num { font-size: 72px; }
+
+    .plan-grid { grid-template-columns: 1fr; }
+    .plan-week { padding: 28px; }
+
+    .principles { grid-template-columns: 1fr; }
+
+    .closing-grid { grid-template-columns: 1fr; gap: 40px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ LANDING VIEW ============ -->
+<div class="view active" id="view-landing">
+  <div class="landing">
+    <div class="landing-inner">
+      <div class="landing-eyebrow">Yug : Hanover Park Project</div>
+      <h1>Hi Chris — you asked me<br><em>two questions.</em></h1>
+      <p class="landing-sub">Below was my approach on both. Click into either to see the work.</p>
+
+      <div class="landing-cards">
+        <button class="landing-card" data-target="view-1">
+          <span class="landing-card-tag">READY</span>
+          <div class="landing-card-num">QUESTION 01</div>
+          <div class="landing-card-prompt">"Build out your first 30 days."</div>
+          <h3>Your first 30 days <em>at Hanover Park.</em></h3>
+          <p>The lifecycle of the 25 daily payments — station by station, payment type by payment type. Then the four-week plan I'd hold myself to.</p>
+          <span class="landing-card-cta">Open Question 01</span>
+        </button>
+
+        <button class="landing-card disabled" data-target="view-2">
+          <span class="landing-card-tag">DRAFT</span>
+          <div class="landing-card-num">QUESTION 02</div>
+          <div class="landing-card-prompt">"What would you build — website, system, workflow tool?"</div>
+          <h3>Given the 25/day, <em>what I'd build.</em></h3>
+          <p>The build pitch: what I'd actually ship, why this and not the alternatives, and an interactive mockup of what it looks like.</p>
+          <span class="landing-card-cta">Coming next</span>
+        </button>
+      </div>
+
+      <div class="landing-foot">
+        <div>YUG : HANOVER PARK PROJECT · TREASURY OPS ASSOCIATE</div>
+        <div>CONFIDENTIAL · FOR CHRIS HLADCZUK</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ VIEW 1 — 30-DAY PLAN ============ -->
+<div class="view" id="view-1">
+<a href="#" class="back-link" data-back>Back to start</a>
+
+<!-- ============ NAV ============ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-mark"></div>
+      <span>Yug : Hanover Park Project</span>
+    </a>
+    <div class="nav-links">
+      <a href="#part-1" class="nav-link">Part 1 · Lifecycle</a>
+      <a href="#part-2" class="nav-link">Part 2 · 30-Day Plan</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">30-Day Plan · Treasury Ops Associate</div>
+    <h1>The 25 / day,<br><em>understood and earned.</em></h1>
+    <p class="hero-sub">Two parts. First — what every payment goes through, station by station. Second — how I'd spend my first 30 days inside that lifecycle.</p>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">25</div>
+      <div class="hero-stat-label">Payments per day baseline<br>across all clients & plans</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">6</div>
+      <div class="hero-stat-label">Distinct payment types<br>each with its own lifecycle</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">7</div>
+      <div class="hero-stat-label">Stations every payment<br>passes through</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num"><em>0</em></div>
+      <div class="hero-stat-label">Errors leaving the platform<br>on my watch</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PART 1 DIVIDER ============ -->
+<div class="part-divider" id="part-1">
+  <div class="part-divider-inner">
+    <div class="part-divider-num"><em>01</em></div>
+    <div>
+      <div class="part-tag">PART ONE</div>
+      <h2>The lifecycle of a <em>payment.</em></h2>
+      <p>Every one of the 25 daily payments enters the system at one end and exits at the other. Six payment types share the same seven stations — but what happens at each station differs by type. Pick a type. Walk the journey.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PART 1 — ANATOMY ============ -->
+<section class="anatomy-section">
+  <div class="section-inner">
+    <div class="section-eyebrow">The Anatomy</div>
+    <h2 class="section-title">Pick a payment type. <em>Walk its lifecycle.</em></h2>
+    <p class="section-sub">Click any of the six types below. The seven stations stay the same — what changes is what happens inside each one. Click any station to see the work.</p>
+
+    <!-- Type selector -->
+    <div class="type-selector" id="type-selector"></div>
+
+    <!-- Type context header -->
+    <div class="type-header" id="type-header"></div>
+
+    <!-- The stations track -->
+    <div class="stations">
+      <div class="stations-track" id="stations-track"></div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot"></div>System / Process</div>
+        <div class="legend-item"><div class="legend-dot ai"></div>AI prepares</div>
+        <div class="legend-item"><div class="legend-dot human"></div>Human reviews</div>
+      </div>
+      <div class="station-detail" id="station-detail"></div>
+    </div>
+
+    <!-- Takeaway -->
+    <div class="lifecycle-takeaway">
+      <div class="lifecycle-takeaway-num"><em>5</em>/7</div>
+      <div>
+        <h4>Stations are AI-prepared. Two are <em>human-reviewed.</em></h4>
+        <p>Of the seven stations every payment passes through, five are AI-prepared and two are human-reviewed. That's the seat I'd be filling — and where my judgment, pattern recognition, and edge-case handling earn the role's trust.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PART 2 DIVIDER ============ -->
+<div class="part-divider" id="part-2">
+  <div class="part-divider-inner">
+    <div class="part-divider-num"><em>02</em></div>
+    <div>
+      <div class="part-tag">PART TWO</div>
+      <h2>How I'd approach <em>30 days.</em></h2>
+      <p>Now that the lifecycle is clear, here's how I'd move through it. Four operating principles I'd hold myself to, four weeks each ending with a deliverable, and the asks I'd make of Chris on Day 1.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PRINCIPLES ============ -->
+<section class="principles-section">
+  <div class="section-inner">
+    <div class="section-eyebrow">Operating Principles</div>
+    <h2 class="section-title">Four things I'd <em>hold myself to.</em></h2>
+    <p class="section-sub">Posture before activities. The way I'd walk in on Day 1, and check myself against on Day 30.</p>
+
+    <div class="principles">
+      <div class="principle">
+        <div class="principle-num">01</div>
+        <h3>Ship the controls before <em>the wires.</em></h3>
+        <p>At 25 payments a day, I can't manually re-verify every wire — and I can't tolerate a single bad one. So the job is to design the <strong>controls that catch errors</strong>, not just run the queue. Every wire I touch is a chance to find the next check that should exist.</p>
+      </div>
+      <div class="principle">
+        <div class="principle-num">02</div>
+        <h3>Every near-miss is <em>roadmap input.</em></h3>
+        <p>An almost-error caught is more valuable than a clean wire shipped. I'd keep a <strong>structured near-miss log from Day 1</strong> — every variance, every soft-flag, every "we caught it just in time" moment. By Day 30, that log becomes the automation memo.</p>
+      </div>
+      <div class="principle">
+        <div class="principle-num">03</div>
+        <h3>AI prepares — <em>I review.</em></h3>
+        <p>Not the other way around. The platform does the heavy lift; my job is to be the human judgment layer Hanover Park sells to GPs. That means <strong>pattern recognition, edge-case handling, and trust calibration</strong> — not data entry, not box-checking.</p>
+      </div>
+      <div class="principle">
+        <div class="principle-num">04</div>
+        <h3>Automate myself out, <em>not up.</em></h3>
+        <p>The role description says it twice: I should be eliminating the manual parts of my own job. That's not threatening — it's the <strong>only way the seat scales as Hanover Park grows.</strong> Every checklist I write is one a teammate (or the platform) can run later.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE PLAN ============ -->
+<section class="plan-section">
+  <div class="section-inner">
+    <div class="section-eyebrow">The 30-Day Arc</div>
+    <h2 class="section-title">Four weeks. <em>Each one ends in a deliverable.</em></h2>
+    <p class="section-sub">Aggressive but honest. Fully owning everything by Day 10 reads naive. Shadowing for 30 days reads low-agency. The middle path is the right signal.</p>
+
+    <div class="plan-grid">
+
+      <div class="plan-week">
+        <div class="plan-week-head">
+          <div class="plan-week-num">01</div>
+          <div class="plan-week-meta">
+            <div class="plan-week-days">DAYS 01–07</div>
+            <span class="plan-week-phase">PHASE · LEARN</span>
+          </div>
+        </div>
+        <h3>Establish the <em>baseline.</em></h3>
+        <p class="plan-week-goal">Understand what 25 payments/day looks like across the whole system — and where errors enter today before AI catches them.</p>
+        <ul class="plan-activities">
+          <li>Shadow each of the 6 payment types end-to-end. Walk all 7 stations for each.</li>
+          <li>Build the payment taxonomy — trigger, source-of-truth, AI-prep boundary, human-review boundary, failure modes.</li>
+          <li>Sit in on 3 client escalations or near-miss reviews — the most concentrated learning per minute.</li>
+          <li>Get fluent in the platform as a user — task-level, not concept-level.</li>
+        </ul>
+        <div class="plan-deliverable">
+          <div class="plan-deliverable-tag">End of Week 1</div>
+          <h5>Payment Taxonomy v1</h5>
+          <p>All 6 types mapped, plus a one-page "where errors enter" memo.</p>
+        </div>
+      </div>
+
+      <div class="plan-week">
+        <div class="plan-week-head">
+          <div class="plan-week-num">02</div>
+          <div class="plan-week-meta">
+            <div class="plan-week-days">DAYS 08–14</div>
+            <span class="plan-week-phase">PHASE · OWN</span>
+          </div>
+        </div>
+        <h3>Take the <em>wheel.</em></h3>
+        <p class="plan-week-goal">Move from shadowing to processing. Start with high-volume / low-stakes, work up to LP-facing wires by EOW.</p>
+        <ul class="plan-activities">
+          <li>Take primary ownership of bill pay + intercompany (~10 of the 25 daily payments).</li>
+          <li>Co-process capital calls + distributions with a senior reviewer. Flip seats by EOW.</li>
+          <li>Daily three-way reconciliation across one client portfolio. Surface variances same-day.</li>
+          <li>Begin the near-miss log. Every almost-error logged with root cause.</li>
+        </ul>
+        <div class="plan-deliverable">
+          <div class="plan-deliverable-tag">End of Week 2</div>
+          <h5>Daily Cash Rec + Near-Miss Log v1</h5>
+          <p>Five clean days. 5–10 near-miss entries, root-caused.</p>
+        </div>
+      </div>
+
+      <div class="plan-week">
+        <div class="plan-week-head">
+          <div class="plan-week-num">03</div>
+          <div class="plan-week-meta">
+            <div class="plan-week-days">DAYS 15–21</div>
+            <span class="plan-week-phase">PHASE · CONTROL</span>
+          </div>
+        </div>
+        <h3>Become the <em>control layer.</em></h3>
+        <p class="plan-week-goal">Be the person who catches things — not the one who needs catching. Solo on a defined client subset.</p>
+        <ul class="plan-activities">
+          <li>Own ~12 daily payments solo across one client subset — full approval rights, full accountability.</li>
+          <li>Build the pre-wire checklist for each payment type — written like an engineering spec.</li>
+          <li>Document mgmt fee + waterfall mechanics for the client subset. Where the most expensive errors live.</li>
+          <li>Bring structured input to engineering syncs on what's pattern-match vs. needs human judgment.</li>
+        </ul>
+        <div class="plan-deliverable">
+          <div class="plan-deliverable-tag">End of Week 3</div>
+          <h5>Pre-Wire Checklist · Production-Ready</h5>
+          <p>Written like a spec. Steps 1, 3, 4, 5, 8 are pure pattern-match — ship-as-feature candidates.</p>
+        </div>
+      </div>
+
+      <div class="plan-week">
+        <div class="plan-week-head">
+          <div class="plan-week-num">04</div>
+          <div class="plan-week-meta">
+            <div class="plan-week-days">DAYS 22–30</div>
+            <span class="plan-week-phase">PHASE · IMPROVE</span>
+          </div>
+        </div>
+        <h3>Systematize, then <em>propose.</em></h3>
+        <p class="plan-week-goal">Hand leadership a credible point of view on what changes in the next 60 days — backed by 4 weeks of evidence.</p>
+        <ul class="plan-activities">
+          <li>Migrate one approval workflow Slack/email → platform. The JD calls this out specifically.</li>
+          <li>Synthesize 4 weeks of near-miss log into top-5 automation memo, ranked by frequency × severity / lift.</li>
+          <li>Commit to one measurable target for the next 30 days, signed off with leadership.</li>
+          <li>1:1 with Chris on where I see the next quarter of investment going.</li>
+        </ul>
+        <div class="plan-deliverable">
+          <div class="plan-deliverable-tag">End of Week 4</div>
+          <h5>Top 5 Automation Memo + Workflow Migrated</h5>
+          <p>Tied to existing Hanover Park product surfaces. One workflow live.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLOSING ============ -->
+<section class="closing-section">
+  <div class="section-inner">
+    <div class="section-eyebrow">Closing</div>
+    <h2 class="section-title">Why this seat, <em>why now.</em></h2>
+
+    <div class="closing-grid">
+      <div class="closing-block">
+        <h3>The thesis, <em>once more.</em></h3>
+        <p>Hanover Park is replacing the financial infrastructure under $100T in global assets. Treasury is the most operationally exposed surface of that — every wire is a chance to either earn or break trust.</p>
+        <p>I want to be the person who runs the controls on Day 1, and writes the spec for the controls that don't need a person on Day 300.</p>
+      </div>
+      <div class="closing-block">
+        <h3>What I'd ask <em>of Chris.</em></h3>
+        <ul class="closing-asks">
+          <li><span>Time with engineering in Week 1 — not Week 3 or 4.</span><span>WEEK 01</span></li>
+          <li><span>Access to any issue log or near-miss log, if one exists. If not — how are these instances being tracked today?</span><span>DAY 01</span></li>
+          <li><span>His personal 60-day road map of where he'd like Yug to be.</span><span>ASAP</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="footer-inner">
+    <a href="#" class="logo">
+      <div class="logo-mark"></div>
+      <span>Yug : Hanover Park Project</span>
+    </a>
+    <div>LIFECYCLE & 30-DAY PLAN · TREASURY OPS ASSOCIATE · v7.0 · CONFIDENTIAL</div>
+  </div>
+</footer>
+
+</div>
+<!-- /view-1 -->
+
+<!-- ============ VIEW 2 — BUILD PROPOSAL (PLACEHOLDER) ============ -->
+<div class="view" id="view-2">
+  <a href="#" class="back-link" data-back>Back to start</a>
+  <div class="placeholder">
+    <div class="placeholder-inner">
+      <div class="placeholder-eyebrow">Coming soon · Question 02</div>
+      <h2>The build pitch is <em>still in draft.</em></h2>
+      <p>I'm working through the answer to your second question — what I'd build given the 25/day flowing through the platform. I'll share this once it's ready.</p>
+      <button class="placeholder-back" data-back>← Back to start</button>
+    </div>
+  </div>
+</div>
+<!-- /view-2 -->
+
+<script>
+  // ============ STATIONS DATA ============
+  const STATIONS = [
+    { id: 'trigger', label: '01 · TRIGGER', name: 'Trigger', sub: 'enters the system', icon: 'play', actor: 'system' },
+    { id: 'sources', label: '02 · SOURCES', name: 'Sources', sub: 'data is gathered', icon: 'database', actor: 'system' },
+    { id: 'aiprep', label: '03 · AI PREP', name: 'AI Prep', sub: 'system calculates', icon: 'cpu', actor: 'ai' },
+    { id: 'checks', label: '04 · CHECKS', name: 'Health Checks', sub: '30+ validations', icon: 'shield', actor: 'ai' },
+    { id: 'review', label: '05 · REVIEW', name: 'Human Review', sub: 'I look', icon: 'eye', actor: 'human' },
+    { id: 'approval', label: '06 · APPROVAL', name: 'Dual Approval', sub: 'GP CFO + me', icon: 'check', actor: 'human' },
+    { id: 'wire', label: '07 · WIRE+AUDIT', name: 'Wire & Audit', sub: 'cash moves, log seals', icon: 'send', actor: 'system' }
+  ];
+
+  // SVG icon paths
+  const ICONS = {
+    play: '<polygon points="6 4 20 12 6 20 6 4"/>',
+    database: '<ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6 V12 C4 13.6 7.5 15 12 15 S20 13.6 20 12 V6"/><path d="M4 12 V18 C4 19.6 7.5 21 12 21 S20 19.6 20 18 V12"/>',
+    cpu: '<rect x="6" y="6" width="12" height="12" rx="1"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="2" x2="9" y2="5"/><line x1="15" y1="2" x2="15" y2="5"/><line x1="9" y1="19" x2="9" y2="22"/><line x1="15" y1="19" x2="15" y2="22"/><line x1="2" y1="9" x2="5" y2="9"/><line x1="2" y1="14" x2="5" y2="14"/><line x1="19" y1="9" x2="22" y2="9"/><line x1="19" y1="14" x2="22" y2="14"/>',
+    shield: '<path d="M12 2 L20 6 V12 C20 17 16 21 12 22 C8 21 4 17 4 12 V6 Z"/><polyline points="9 12 11 14 15 10"/>',
+    eye: '<path d="M2 12 C4 7 8 4 12 4 S20 7 22 12 C20 17 16 20 12 20 S4 17 2 12 Z"/><circle cx="12" cy="12" r="3"/>',
+    check: '<polyline points="4 12 10 18 20 6"/>',
+    send: '<line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>'
+  };
+
+  // ============ PAYMENT TYPE DATA ============
+  const TYPES = {
+    cap: {
+      id: 'PMT-01',
+      name: 'Capital Calls',
+      vol: '~5 / day',
+      stake: 'Highest stakes · LP-facing',
+      summary: 'The fund calls capital from LPs to deploy into a new investment or fund expense. The most-watched payment by LPs — wrong amount or wrong wire instructions becomes a credibility event.',
+      stations: {
+        trigger: {
+          headline: 'GP authorizes a draw against the capital plan.',
+          headlineSub: 'A new investment is closing, or a fund expense needs funding. The GP\'s capital plan calls for a specific dollar amount; this fires the call.',
+          inputs: ['Capital plan / call schedule', 'GP CFO authorization', 'Upcoming investment or expense'],
+          outputs: ['Call notional ($)', 'Per-LP allocation method', 'Target wire date'],
+          errors: ['Call timing misaligned with LPA notice period', 'Notional mismatch with capital plan'],
+          myRole: 'Confirm the call timing satisfies the LPA notice period (≥10 BD typically) before the system fires the call notice.'
+        },
+        sources: {
+          headline: 'Pull commitment basis, side letters, wire instructions.',
+          headlineSub: 'Per-LP basis is calculated from subscription docs, but side letters override. Wire instructions come from the LP portal. Any of these stale = problem downstream.',
+          inputs: ['Subscription documents', 'Side letter overrides', 'LP wire instructions (LP portal)', 'Subsequent close adjustments'],
+          outputs: ['Per-LP commitment basis', 'Per-LP wire routing', 'Override flags'],
+          errors: ['Side letter terms not parsed into basis', 'Stale wire instructions cached', 'Subsequent close LP not refreshed'],
+          myRole: 'Verify side letter overrides are applied before AI calculation. Side-letter misses are the highest-severity error class on capital calls.'
+        },
+        aiprep: {
+          headline: 'AI calculates per-LP allocation, drafts notices, proposes wires.',
+          headlineSub: 'The system applies the call percentage to each LP\'s commitment basis. Drafts personalized capital call notices. Stages GL entries for cash receipt + commitment drawdown.',
+          inputs: ['Commitment basis per LP', 'Call percentage', 'Notice templates'],
+          outputs: ['Per-LP call amount', 'Drafted LP notices', 'Staged GL entries', 'Wire batch proposal'],
+          errors: ['Rounding errors across funds', 'Notice template variable substitution miss'],
+          myRole: 'AI does this. I don\'t touch this station — but I learn what it produces so I can spot when its output looks wrong.'
+        },
+        checks: {
+          headline: 'The 30+ health checks run automatically.',
+          headlineSub: 'Hanover Park\'s validation engine runs commitment limits, allocation math, LPA compliance, prior-call reconciliation, wire-instruction freshness, and entity-routing checks.',
+          inputs: ['AI-prepped wire batch', 'Current LP data', 'LPA terms', 'Health check rule set'],
+          outputs: ['Pass / flag / fail per check', 'Held wires queued for human', 'Cleared wires queued for approval'],
+          errors: ['Edge case not yet in rule set (becomes my checklist input)'],
+          myRole: 'Watch the flagged ones — the human-judgment cases the rule set hasn\'t learned yet. Each flag is a candidate checklist addition.'
+        },
+        review: {
+          headline: 'I review every flag, every variance, every novel pattern.',
+          headlineSub: 'The flagged subset comes to me. I cross-reference subscription docs, escalate to GP CFO if needed, and either clear or hold each wire with a logged reason.',
+          inputs: ['Flagged wires', 'Source documents', 'Pattern history from near-miss log'],
+          outputs: ['Hold / clear decision per wire', 'Reason logged', 'Near-miss entries created'],
+          errors: ['Reviewer fatigue at high volume', 'Pattern recognition gaps for new fund types'],
+          myRole: 'This is the seat. Pattern recognition, edge-case handling, judgment. The cleaner I run this station, the faster the wires move.'
+        },
+        approval: {
+          headline: 'Dual sign-off — Hanover Park preparer + GP CFO.',
+          headlineSub: 'In-platform structured approval. Templated dual-approver routes. Audit trail captured: who, when, against what data version. No Slack. No email.',
+          inputs: ['Cleared wire batch', 'Approver routing rules', 'GP CFO availability'],
+          outputs: ['Dual-signed wires', 'Immutable audit log entry', 'Approval timestamp'],
+          errors: ['Approval bottlenecks if GP CFO is slow', 'Routing exceptions for off-cycle calls'],
+          myRole: 'I prepare and counter-sign. Most of the work is done before this station — by here, I\'ve already done the judgment work.'
+        },
+        wire: {
+          headline: 'Cash moves. Audit log seals.',
+          headlineSub: 'Wires fire to LPs\' bank accounts. GL entries post in real-time. Audit trail seals — every entry traced to source, every approval documented.',
+          inputs: ['Approved wire batch', 'Bank routing infrastructure', 'GL posting engine'],
+          outputs: ['Wires sent', 'GL entries posted', 'Audit log entry sealed', 'LP confirmations triggered'],
+          errors: ['Bank rejection (rare, but happens on entity name mismatch)'],
+          myRole: 'Monitor for rejections. A bank rejection here means we missed something at sources or review.'
+        }
+      }
+    },
+    dist: {
+      id: 'PMT-02',
+      name: 'Distributions',
+      vol: '~3 / day',
+      stake: 'LP-facing · tax-sensitive',
+      summary: 'The fund returns proceeds to LPs after a realization event — exit, dividend, recap. Distributions are how LPs measure GP performance, and where the most complex math lives.',
+      stations: {
+        trigger: {
+          headline: 'A realization event fires.',
+          headlineSub: 'A portco exits, pays a dividend, or recapitalizes. Cash hits the fund\'s bank account. The waterfall engine triggers calculation of distributable proceeds.',
+          inputs: ['Realization event (exit notice, dividend, recap)', 'Cash receipt confirmation', 'Fund-level realized proceeds'],
+          outputs: ['Distributable amount', 'Realization classification (return of capital vs. carry)'],
+          errors: ['Misclassification of proceeds (capital vs. income)', 'Timing mismatch between cash receipt and distribution'],
+          myRole: 'Confirm classification matches LPA terms. Misclassification cascades into wrong waterfall tier.'
+        },
+        sources: {
+          headline: 'Pull waterfall, tax rules, wire instructions, FX rates.',
+          headlineSub: 'Waterfall calc per LP from the engine. Tax withholding rules per LP jurisdiction. Wire instructions from LP portal. FX rates if non-USD LPs.',
+          inputs: ['Waterfall calc per LP', 'Tax withholding rules', 'LP wire instructions', 'FX rate (non-USD)', 'GL distribution accruals'],
+          outputs: ['Per-LP distribution amount', 'Per-LP withholding amount', 'Per-LP routing'],
+          errors: ['Tax form expired (W-9/W-8BEN)', 'FX rate stale or wrong source', 'Wire instructions stale'],
+          myRole: 'Verify tax forms current for non-US LPs before AI calculates withholding. Form expirations are a recurring near-miss class.'
+        },
+        aiprep: {
+          headline: 'AI runs waterfall, applies withholding, drafts wires.',
+          headlineSub: 'Waterfall engine calculates LP-by-LP allocation per LPA tiers (return of capital, hurdles, catch-ups, carry). Withholding deducted. FX applied. Wire batch staged.',
+          inputs: ['Waterfall tiers per LP', 'Per-LP basis + tax + FX', 'Bank routing'],
+          outputs: ['Distribution per LP (gross + net)', 'Withholding amount per LP', 'Wire batch'],
+          errors: ['Wrong waterfall tier applied', 'Currency conversion edge cases'],
+          myRole: 'AI does this. I learn its outputs so I can spot anomalies.'
+        },
+        checks: {
+          headline: 'Tax + FX + entity name + waterfall validation.',
+          headlineSub: 'Health checks run: withholding rate matches tax form, FX rate from approved source, beneficiary name exact match, waterfall reconciles to fund-level proceeds.',
+          inputs: ['AI-prepped distribution batch', 'Tax form vault', 'FX source feed', 'LPA waterfall tiers'],
+          outputs: ['Pass / flag / fail per check', 'Held distributions', 'Cleared distributions'],
+          errors: ['Form expired but cached as current'],
+          myRole: 'Form expiration is the #1 distribution flag. I keep an expiry map for the top 20 LPs in my client subset.'
+        },
+        review: {
+          headline: 'I review flags. Tax-sensitive ones get GP CFO + tax counsel.',
+          headlineSub: 'For non-US LPs especially, tax withholding errors create LP credibility events and refund cycles. I escalate any withholding flag to GP CFO and tax counsel.',
+          inputs: ['Flagged distributions', 'Tax forms on file', 'Tax counsel availability'],
+          outputs: ['Hold / clear / escalate decision', 'Counsel sign-off where needed'],
+          errors: ['Missed escalation on edge tax case'],
+          myRole: 'Distribution review = tax fluency. I close my gap on UBTI, treaty rates, and PFIC withholding fast.'
+        },
+        approval: {
+          headline: 'Dual sign-off, with tax counsel if any non-US LP.',
+          headlineSub: 'GP CFO + Hanover Park preparer for the standard cases. Add tax counsel sign-off if any non-US LP withholding is involved. Structured in-platform.',
+          inputs: ['Cleared distribution batch', 'Approver routing', 'Tax counsel'],
+          outputs: ['Dual or triple-signed distributions', 'Audit log'],
+          errors: ['Tax counsel bottleneck on quarter-end'],
+          myRole: 'Counter-sign. Pre-empt the bottleneck by flagging quarter-end distributions early.'
+        },
+        wire: {
+          headline: 'Distributions wire. Tax forms (1099/K-1) trail.',
+          headlineSub: 'Wires send. GL posts. Tax forms generated for the year-end trail. Audit log seals with full data lineage.',
+          inputs: ['Approved distribution batch', 'Banking layer', 'Tax form generator'],
+          outputs: ['LP distributions paid', 'Withholding remitted to tax authority', 'Year-end forms trailed', 'Audit log sealed'],
+          errors: ['Bank rejection (entity name mismatch)', 'Year-end form mismatch (caught at year-end audit)'],
+          myRole: 'Monitor rejections + reconcile year-end form trail at quarter close.'
+        }
+      }
+    },
+    inv: {
+      id: 'PMT-03',
+      name: 'Investment Wires',
+      vol: '~3 / day',
+      stake: 'Hard deadline · deal close',
+      summary: 'The fund wires capital to a portfolio company at deal signing. Externally-imposed deadline (the closing time on the term sheet). Also the #1 wire fraud target in private markets.',
+      stations: {
+        trigger: {
+          headline: 'Deal close — IC approval + signed closing docs.',
+          headlineSub: 'Investment committee has approved. Term sheet signed. Closing time on the term sheet is the wire deadline. Bridge funding may be needed if cash isn\'t available.',
+          inputs: ['IC approval memo', 'Signed term sheet', 'Closing schedule'],
+          outputs: ['Wire amount', 'Wire deadline (from term sheet)', 'Receiving entity (portco)', 'Originating fund entity'],
+          errors: ['Parallel fund attribution unclear at close'],
+          myRole: 'Confirm originating fund entity matches the IC approval (parallel funds are where this slips).'
+        },
+        sources: {
+          headline: 'Pull wire instructions from signed closing cert.',
+          headlineSub: 'The portco\'s wire instructions come from the signed closing certificate — never from email, never from chat. This is the fraud-defense layer.',
+          inputs: ['Signed closing certificate', 'Portco bank instructions', 'Available cash in fund', 'Bridge facility (if needed)'],
+          outputs: ['Verified wire instructions', 'Cash availability confirmation', 'Originating account'],
+          errors: ['Wire instructions tampered between signing and receipt', 'Insufficient cash without bridge'],
+          myRole: 'Verify wire instructions against signed cert. This is the highest-stakes fraud check in the entire system.'
+        },
+        aiprep: {
+          headline: 'AI stages the wire. Routing checks run.',
+          headlineSub: 'AI proposes the wire from the verified instructions. Routing logic confirms originating entity. Cash availability check confirms funds present.',
+          inputs: ['Verified instructions', 'Routing rules', 'Cash position'],
+          outputs: ['Staged wire', 'Routing confirmation', 'Cash check pass/fail'],
+          errors: ['Edge case in parallel-fund routing logic'],
+          myRole: 'AI does this. I confirm routing manually for any parallel-fund situation — those are where my judgment adds value.'
+        },
+        checks: {
+          headline: 'Anomaly detection on wire instruction changes.',
+          headlineSub: 'Health checks compare current wire instructions to any prior version. Flags any change in the last 72 hours. Cross-references against signed cert hash.',
+          inputs: ['Wire instructions history', 'Signed cert hash', 'Anomaly rule set'],
+          outputs: ['Pass / flag / fail', 'Anomaly score'],
+          errors: ['Sophisticated fraud not matching pattern'],
+          myRole: 'Any flag here = stop. I do not rely on the rule set alone for inv wires — I always cross-check against the signed cert.'
+        },
+        review: {
+          headline: 'I personally verify wire instructions vs. signed cert.',
+          headlineSub: 'Even when AI clears it, I personally verify investment wire instructions against the signed closing cert. Inv wire fraud is a livelihood event — not a place for trust calibration.',
+          inputs: ['Signed cert', 'AI-staged wire', 'Wire instruction history'],
+          outputs: ['Verified wire (or hold + escalate)', 'Reason logged'],
+          errors: ['Time pressure → skipped check'],
+          myRole: 'No exceptions. Every inv wire gets the cert check, regardless of deadline pressure.'
+        },
+        approval: {
+          headline: 'GP-level signature authority. Treasury releases.',
+          headlineSub: 'Investment wires require GP-level signing authority — typically the Managing Partner or signing GP. Treasury team holds release until signature received.',
+          inputs: ['Verified wire', 'GP signing authority', 'Release rules'],
+          outputs: ['GP-signed wire', 'Release confirmation'],
+          errors: ['GP unavailable at deadline'],
+          myRole: 'Pre-empt unavailability — confirm signing authority is on-deck 24h before close.'
+        },
+        wire: {
+          headline: 'Wire fires. Deal closes. Audit seals.',
+          headlineSub: 'Funds hit portco. Closing confirmed. GL posts the investment. Audit log seals with cert hash, signing authority, timing.',
+          inputs: ['Released wire', 'Banking infrastructure', 'GL posting'],
+          outputs: ['Funds at portco', 'Deal closed', 'GL posted', 'Audit sealed'],
+          errors: ['Wire bounce (extremely rare here given verification chain)'],
+          myRole: 'Confirm receipt. Notify GP. Move on.'
+        }
+      }
+    },
+    mgmt: {
+      id: 'PMT-04',
+      name: 'Management Fees',
+      vol: '~3 / day',
+      stake: 'Recurring · waterfall-tied',
+      summary: 'The fund pays the GP entity its management fee per the LPA. Typically quarterly. Recurring and rule-bound — but the rules shift mid-life (step-downs, deal fee offsets).',
+      stations: {
+        trigger: {
+          headline: 'Quarterly schedule fires.',
+          headlineSub: 'The mgmt fee schedule defined in the LPA fires automatically at quarter-end. Trigger pulls the basis as of the fee period.',
+          inputs: ['LPA fee schedule', 'Period-end date', 'Fee basis type (NAV / commitments / invested capital)'],
+          outputs: ['Fee period', 'Fee basis type', 'Trigger timestamp'],
+          errors: ['Investment period transition not detected (step-down should fire)'],
+          myRole: 'Track step-down dates per fund. Calendar-driven, but easy to miss.'
+        },
+        sources: {
+          headline: 'Pull current basis + LPA terms + offsets.',
+          headlineSub: 'Current NAV / commitments / invested capital pulled from GL. LPA terms reference the rate. Deal fee offsets pulled from the fee period.',
+          inputs: ['Current basis (per fund\'s LPA)', 'LPA fee rate (with step-down rules)', 'Deal fees in period (for offset)'],
+          outputs: ['Basis $', 'Effective rate (post-step-down if applicable)', 'Offset $'],
+          errors: ['Basis didn\'t recalc after a mid-quarter capital event', 'Offset not applied'],
+          myRole: 'Verify basis is current and step-down is correctly applied. Mid-period capital events are the silent killer here.'
+        },
+        aiprep: {
+          headline: 'AI calculates net mgmt fee. Stages GL entries.',
+          headlineSub: 'Net fee = (basis × rate) − offset. AI stages the GL accrual + payment entry. Drafts the GP-entity wire.',
+          inputs: ['Basis × rate − offset'],
+          outputs: ['Net fee $', 'Staged GL entries', 'GP-entity wire draft'],
+          errors: ['Rounding edge cases'],
+          myRole: 'AI does the math. I confirm the math reflects the LPA, not just the previous quarter.'
+        },
+        checks: {
+          headline: 'Step-down validation, offset validation, basis-event triggers.',
+          headlineSub: 'Health checks: did basis recalc after recent capital events, is the rate current, are deal fee offsets applied for the period.',
+          inputs: ['Capital event history', 'LPA rate schedule', 'Deal fee log'],
+          outputs: ['Pass / flag / fail'],
+          errors: ['Mid-period capital event not triggering basis recalc'],
+          myRole: 'Mid-period basis recalc is a high-frequency near-miss. I keep a calendar of capital events alongside the fee schedule.'
+        },
+        review: {
+          headline: 'I confirm basis + rate + offsets one more time.',
+          headlineSub: 'Recurring doesn\'t mean rote. I check the basis recalculated after any capital events in the period. Especially around step-down transitions.',
+          inputs: ['Calculated fee', 'Capital event timeline', 'Step-down trigger date'],
+          outputs: ['Confirm or flag'],
+          errors: ['Reviewer treating recurring as routine'],
+          myRole: 'The seat\'s biggest risk on mgmt fees is treating "recurring" as "rote." Discipline here matters.'
+        },
+        approval: {
+          headline: 'GP CFO sign-off (recurring approval template).',
+          headlineSub: 'Templated dual approval: Hanover Park preparer + GP CFO. Faster path because of the recurring nature, but still in-platform.',
+          inputs: ['Confirmed fee', 'GP CFO routing'],
+          outputs: ['Dual-signed payment'],
+          errors: ['Speed → reduced scrutiny'],
+          myRole: 'Co-sign. Don\'t let the recurring template create rubber-stamping habits.'
+        },
+        wire: {
+          headline: 'Mgmt fee wires. GL posts. Audit seals.',
+          headlineSub: 'Wire to GP entity. GL posts the fee expense + cash payment. Audit log captures basis, rate, offsets, approvers, timing.',
+          inputs: ['Approved payment', 'GP entity routing', 'GL'],
+          outputs: ['Fee paid to GP', 'GL posted', 'Audit sealed'],
+          errors: ['Rare here'],
+          myRole: 'Quarter-end summary: confirm all funds\' mgmt fees ran cleanly.'
+        }
+      }
+    },
+    ap: {
+      id: 'PMT-05',
+      name: 'Bill Pay / AP',
+      vol: '~7 / day',
+      stake: 'High volume · low stakes',
+      summary: 'Vendor invoices — auditors, lawyers, software, fund admin. Highest volume class but lowest individual stakes. Where a junior typically starts; where the most automation opportunity lives.',
+      stations: {
+        trigger: {
+          headline: 'Invoice arrives via email or vendor portal.',
+          headlineSub: 'Vendor sends invoice. AI ingest extracts fields (amount, vendor, period, line items). Routes into the AP queue.',
+          inputs: ['Vendor invoice (PDF)', 'Email channel', 'Vendor portal'],
+          outputs: ['Extracted invoice fields', 'Vendor identification', 'AP queue entry'],
+          errors: ['Duplicate submission (email + portal)'],
+          myRole: 'AI does this. I monitor the dup-detection layer for false negatives.'
+        },
+        sources: {
+          headline: 'Vendor master + allocation rules + budget.',
+          headlineSub: 'AI looks up vendor against master file. Applies allocation rules (which fund(s) bear this expense, in what proportion). Checks budget.',
+          inputs: ['Vendor master', 'Allocation rules (fund vs. fund expense)', 'Budget allocations'],
+          outputs: ['Vendor matched', 'Allocation per fund', 'Budget check'],
+          errors: ['Vendor not in master (new vendor)', 'Allocation rule ambiguous'],
+          myRole: 'New vendors and ambiguous allocations are the two flag types I see most. Both go to me.'
+        },
+        aiprep: {
+          headline: 'AI proposes journal entries + wire batch.',
+          headlineSub: 'AI stages JE per fund (DR expense, CR cash). Drafts wire to vendor. Routes for approval per amount threshold.',
+          inputs: ['Allocation %', 'Vendor routing', 'Approval thresholds'],
+          outputs: ['Journal entries staged', 'Wire batch', 'Approval routing'],
+          errors: ['Allocation math edge cases'],
+          myRole: 'AI does this. I review the JEs only when allocation flags.'
+        },
+        checks: {
+          headline: 'Duplicate detection, budget validation, vendor verification.',
+          headlineSub: 'Hash-based dup check. Budget vs. invoice amount. Vendor identity verification. All automated.',
+          inputs: ['Invoice hash', 'Vendor history', 'Budget by fund'],
+          outputs: ['Pass / flag / fail per check'],
+          errors: ['Fuzzy duplicates (slight differences but same invoice)'],
+          myRole: 'Fuzzy dup detection is where I add value. The hash-only check misses these.'
+        },
+        review: {
+          headline: 'I review flags only.',
+          headlineSub: 'Most AP wires bypass my review entirely (single-signer threshold). I see the flags: new vendors, fuzzy dups, allocation conflicts, over-budget items.',
+          inputs: ['Flagged invoices', 'Vendor master', 'Budget context'],
+          outputs: ['Approve / hold / reject'],
+          errors: ['Reviewer missing fuzzy dups'],
+          myRole: 'AP is where I learn vendor patterns fastest. Pattern recognition feeds the dup detection roadmap.'
+        },
+        approval: {
+          headline: 'Single-signer under threshold. Dual above.',
+          headlineSub: 'Most AP wires are under threshold and clear with single approval. Above threshold (e.g., $50K+) requires dual approval.',
+          inputs: ['Approved invoice', 'Approval threshold', 'Approver routing'],
+          outputs: ['Single or dual-signed payment'],
+          errors: ['Threshold misconfiguration per client'],
+          myRole: 'I co-sign on above-threshold items. Volume here teaches throughput.'
+        },
+        wire: {
+          headline: 'Vendor paid. GL posts allocation. Audit seals.',
+          headlineSub: 'Wire to vendor. GL posts split across allocated funds. Audit log captures vendor, allocation, approvers.',
+          inputs: ['Approved payment', 'Allocation map'],
+          outputs: ['Vendor paid', 'GL posted (multi-fund split)', 'Audit sealed'],
+          errors: ['Posting errors on multi-fund splits'],
+          myRole: 'Spot-check multi-fund splits at month-end.'
+        }
+      }
+    },
+    ic: {
+      id: 'PMT-06',
+      name: 'Intercompany',
+      vol: '~4 / day',
+      stake: 'Complex structures',
+      summary: 'Transfers between fund + blocker / splitter / aggregator entities. Often tax-driven. Where Hanover Park\'s "Built for Complexity" claim earns its keep — and where the most expensive errors hide.',
+      stations: {
+        trigger: {
+          headline: 'Quarterly close, tax event, or allocation true-up.',
+          headlineSub: 'IC transfers fire on quarterly schedules, tax-driven events (UBTI mitigation), or allocation true-ups (when methodology updates).',
+          inputs: ['Quarter close calendar', 'Tax event schedule', 'Methodology version'],
+          outputs: ['Trigger event type', 'Affected entities (blocker, main, splitter, etc.)', 'Methodology pointer'],
+          errors: ['Methodology version drift between trigger and source pull'],
+          myRole: 'Confirm methodology version is current. Doc updates that don\'t propagate to calc are the #1 IC error.'
+        },
+        sources: {
+          headline: 'Pull fund structure, methodology doc, tax guidance.',
+          headlineSub: 'Fund structure diagram (which entities exist, how they relate). Allocation methodology doc (current version). Tax counsel guidance for treatment.',
+          inputs: ['Fund structure diagram', 'Allocation methodology doc (versioned)', 'Tax counsel memos'],
+          outputs: ['Entity routing map', 'Allocation %', 'Tax treatment'],
+          errors: ['Methodology version mismatch', 'Stale tax guidance'],
+          myRole: 'Version-pin the methodology doc against the calc input. This prevents the silent drift class.'
+        },
+        aiprep: {
+          headline: 'AI applies methodology. Stages dual booking entries.',
+          headlineSub: 'IC transfers always book on both sides — DR on one entity, CR on another. AI stages both. Routes for fund accounting + tax review.',
+          inputs: ['Methodology %', 'Entity routing', 'Both-sides booking template'],
+          outputs: ['Dual booking entries', 'Wire / journal proposal', 'Routing'],
+          errors: ['Both sides not balancing (rare but severe)'],
+          myRole: 'AI does this. I sample-check that both sides balance for every IC type at least once monthly.'
+        },
+        checks: {
+          headline: 'Entity routing, both-sides balance, methodology version.',
+          headlineSub: 'Health checks: correct entity charged, both booking sides balance, methodology version current, tax treatment confirmed.',
+          inputs: ['Entity rules', 'Booking entries', 'Methodology version'],
+          outputs: ['Pass / flag / fail'],
+          errors: ['Methodology version drift caught here'],
+          myRole: 'Methodology drift is the most common flag. I close that error class with version pinning.'
+        },
+        review: {
+          headline: 'Fund accounting + tax counsel review.',
+          headlineSub: 'IC transfers always go to fund accounting + tax counsel. Both have to clear. I prepare; they confirm tax treatment.',
+          inputs: ['Flagged transfers', 'Tax counsel availability', 'Fund accounting'],
+          outputs: ['Cleared / held / escalated'],
+          errors: ['Tax counsel bottleneck on quarter close'],
+          myRole: 'IC review = structure fluency. I learn one client\'s structure deeply (W3) before I generalize.'
+        },
+        approval: {
+          headline: 'Fund accounting lead + GP CFO sign.',
+          headlineSub: 'Dual approval: fund accounting lead + GP CFO. Tax counsel attestation if required. All in-platform with audit trail.',
+          inputs: ['Cleared transfer', 'Approver routing'],
+          outputs: ['Dual-signed transfer', 'Tax attestation (if required)'],
+          errors: ['Approver routing exceptions for off-cycle transfers'],
+          myRole: 'Counter-sign. Pre-empt quarter-end bottlenecks.'
+        },
+        wire: {
+          headline: 'Cross-entity transfer. Both sides post. Audit seals.',
+          headlineSub: 'Cash moves between entities. Both booking sides post simultaneously. Audit log captures methodology version, approvers, tax treatment.',
+          inputs: ['Approved transfer', 'Both-sides routing'],
+          outputs: ['Cash transferred', 'Both sides posted', 'Audit sealed (with methodology version)'],
+          errors: ['Posting timing mismatches between sides'],
+          myRole: 'Reconcile both sides at posting. Mismatches there mean a system problem worth flagging to engineering.'
+        }
+      }
+    }
+  };
+
+  // ============ STATE ============
+  let activeType = 'cap';
+  let activeStation = 'review';
+
+  // ============ RENDER ============
+  function renderTypeSelector() {
+    const container = document.getElementById('type-selector');
+    container.innerHTML = Object.keys(TYPES).map(key => {
+      const t = TYPES[key];
+      return `
+        <button class="type-btn ${key === activeType ? 'active' : ''}" data-type="${key}">
+          <div class="type-btn-id">${t.id}</div>
+          <div class="type-btn-name">${t.name}</div>
+          <div class="type-btn-vol">${t.vol}</div>
+        </button>
+      `;
+    }).join('');
+
+    container.querySelectorAll('.type-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeType = btn.dataset.type;
+        renderAll();
+      });
+    });
+  }
+
+  function renderTypeHeader() {
+    const t = TYPES[activeType];
+    document.getElementById('type-header').innerHTML = `
+      <div>
+        <h3>${t.name} <em>· lifecycle.</em></h3>
+        <p>${t.summary}</p>
+      </div>
+      <div class="type-header-stake">
+        <div class="stake-label">Volume / day</div>
+        <div class="stake-val">${t.vol}</div>
+      </div>
+    `;
+  }
+
+  function renderStations() {
+    const container = document.getElementById('stations-track');
+    container.innerHTML = STATIONS.map(s => {
+      const actorClass = s.actor === 'ai' ? 'ai' : s.actor === 'human' ? 'human' : '';
+      return `
+        <div class="station ${actorClass} ${s.id === activeStation ? 'active' : ''}" data-station="${s.id}">
+          <div class="station-marker">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              ${ICONS[s.icon]}
+            </svg>
+          </div>
+          <div class="station-label">${s.label}</div>
+          <div class="station-name">${s.name}<small>${s.sub}</small></div>
+        </div>
+      `;
+    }).join('');
+
+    container.querySelectorAll('.station').forEach(st => {
+      st.addEventListener('click', () => {
+        activeStation = st.dataset.station;
+        renderStations();
+        renderStationDetail();
+      });
+    });
+  }
+
+  function renderStationDetail() {
+    const t = TYPES[activeType];
+    const s = STATIONS.find(x => x.id === activeStation);
+    const data = t.stations[activeStation];
+    const actorLabel = s.actor === 'ai' ? 'AI prepares' : s.actor === 'human' ? 'Human reviews' : 'System / process';
+    const actorClass = s.actor === 'ai' ? 'ai' : s.actor === 'human' ? 'human' : '';
+
+    document.getElementById('station-detail').innerHTML = `
+      <div class="station-detail-head">
+        <div>
+          <div class="station-detail-tag">${s.label} · ${t.name.toUpperCase()}</div>
+          <h4>${data.headline}</h4>
+          <p class="station-detail-headp">${data.headlineSub}</p>
+        </div>
+        <div class="station-actor-pill ${actorClass}">${actorLabel}</div>
+      </div>
+      <div class="station-detail-grid">
+        <div class="sd-block">
+          <h6>Inputs at this station</h6>
+          <ul>${data.inputs.map(i => `<li>${i}</li>`).join('')}</ul>
+        </div>
+        <div class="sd-block">
+          <h6>Outputs to next station</h6>
+          <ul>${data.outputs.map(o => `<li>${o}</li>`).join('')}</ul>
+        </div>
+        <div class="sd-block">
+          <h6>Where errors enter here</h6>
+          <ul class="errors">${data.errors.map(e => `<li>${e}</li>`).join('')}</ul>
+        </div>
+      </div>
+      <div class="station-my-role">
+        <h6>My role at this station</h6>
+        <p>${data.myRole}</p>
+      </div>
+    `;
+  }
+
+  function renderAll() {
+    renderTypeSelector();
+    renderTypeHeader();
+    renderStations();
+    renderStationDetail();
+  }
+
+  renderAll();
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]:not([data-back]):not(.landing-card)').forEach(link => {
+    link.addEventListener('click', e => {
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target && link.getAttribute('href').length > 1) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  // ============ VIEW SWITCHING ============
+  function showView(viewId) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    const target = document.getElementById(viewId);
+    if (target) {
+      target.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      // Update URL hash for shareable links / back button
+      if (viewId === 'view-landing') {
+        history.replaceState(null, '', window.location.pathname);
+      } else {
+        history.replaceState(null, '', '#' + viewId.replace('view-', 'q'));
+      }
+    }
+  }
+
+  // Landing card clicks
+  document.querySelectorAll('.landing-card[data-target]').forEach(card => {
+    card.addEventListener('click', () => {
+      if (card.classList.contains('disabled')) return;
+      showView(card.dataset.target);
+    });
+  });
+
+  // Back link clicks (any element with data-back attribute)
+  document.querySelectorAll('[data-back]').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      showView('view-landing');
+    });
+  });
+
+  // Handle direct URL hash on load (so #q1 or #q2 deep-links work)
+  function handleHash() {
+    const hash = window.location.hash.replace('#', '');
+    if (hash === 'q1') showView('view-1');
+    else if (hash === 'q2') showView('view-2');
+    else showView('view-landing');
+  }
+  handleHash();
+  window.addEventListener('hashchange', handleHash);
+</script>
+</body>
+</html>
